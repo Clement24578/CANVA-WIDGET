@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<!-- saved from url=(0140)https://bb1p9fjqhn3be9v6.canva-hosted-embed.com/codelet/AAEAEGJiMXA5ZmpxaG4zYmU5djYAAAAAAZbEio3eiy8xaKSAnmiv0y7akpZQuu7rVglljLFUfAKckizn9gc/ -->
+<html lang="fr" style="font-size: 100%;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget d'Accessibilité RGAA/WCAG</title>
+    <style>
+        /* Styles de démonstration pour la page */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1, h2 {
+            color: #333;
+        }
+        
+        /* Début du Widget d'Accessibilité */
+        #accessibility-widget {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        #accessibility-toggle {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            width: 60px !important;
+            height: 60px !important;
+            border-radius: 50% !important;
+            background-color: #2563eb !important;
+            color: white !important;
+            border: none !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+            z-index: 99999 !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+            outline: none !important;
+        }
+        
+        #accessibility-toggle:hover, #accessibility-toggle:focus {
+            transform: scale(1.05) !important;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        #accessibility-toggle:focus {
+            outline: 3px solid #fff !important;
+            outline-offset: 2px !important;
+        }
+        
+        #accessibility-toggle svg {
+            width: 32px !important;
+            height: 32px !important;
+        }
+        
+        #accessibility-panel {
+            position: fixed !important;
+            bottom: 90px !important;
+            right: 20px !important;
+            width: 320px !important;
+            max-height: 80vh !important;
+            overflow-y: auto !important;
+            background-color: #ffffff !important;
+            border-radius: 12px !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+            z-index: 99998 !important;
+            transition: all 0.3s ease !important;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            font-size: 16px !important;
+            color: #333 !important;
+        }
+        
+        #accessibility-panel.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        #accessibility-panel-header {
+            padding: 16px !important;
+            background-color: #2563eb !important;
+            color: white !important;
+            border-top-left-radius: 12px !important;
+            border-top-right-radius: 12px !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+        
+        #accessibility-panel-header h2 {
+            margin: 0 !important;
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            color: white !important;
+        }
+        
+        #accessibility-close {
+            background: transparent !important;
+            border: none !important;
+            color: white !important;
+            cursor: pointer !important;
+            padding: 5px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 50% !important;
+            width: 30px !important;
+            height: 30px !important;
+        }
+        
+        #accessibility-close:hover, #accessibility-close:focus {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        }
+        
+        #accessibility-close:focus {
+            outline: 2px solid #fff !important;
+            outline-offset: 2px !important;
+        }
+        
+        #accessibility-panel-content {
+            padding: 16px !important;
+        }
+        
+        .accessibility-section {
+            margin-bottom: 20px !important;
+            border-bottom: 1px solid #e5e7eb !important;
+            padding-bottom: 16px !important;
+        }
+        
+        .accessibility-section:last-child {
+            border-bottom: none !important;
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+        
+        .accessibility-section-title {
+            font-weight: 600 !important;
+            margin-bottom: 12px !important;
+            font-size: 16px !important;
+            color: #1f2937 !important;
+        }
+        
+        .accessibility-options {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+        }
+        
+        .accessibility-button {
+            background-color: #f3f4f6 !important;
+            border: 1px solid #e5e7eb !important;
+            border-radius: 6px !important;
+            padding: 8px 12px !important;
+            cursor: pointer !important;
+            font-size: 14px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.2s ease !important;
+            color: #4b5563 !important;
+            flex: 1 0 auto !important;
+            min-width: 80px !important;
+            text-align: center !important;
+        }
+        
+        .accessibility-button:hover, .accessibility-button:focus {
+            background-color: #e5e7eb !important;
+            border-color: #d1d5db !important;
+        }
+        
+        .accessibility-button:focus {
+            outline: 2px solid #2563eb !important;
+            outline-offset: 2px !important;
+        }
+        
+        .accessibility-button.active {
+            background-color: #2563eb !important;
+            color: white !important;
+            border-color: #2563eb !important;
+        }
+        
+        .accessibility-slider-container {
+            width: 100% !important;
+            margin-top: 8px !important;
+        }
+        
+        .accessibility-slider {
+            width: 100% !important;
+            height: 6px !important;
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            background: #e5e7eb !important;
+            outline: none !important;
+            border-radius: 3px !important;
+        }
+        
+        .accessibility-slider::-webkit-slider-thumb {
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            width: 18px !important;
+            height: 18px !important;
+            border-radius: 50% !important;
+            background: #2563eb !important;
+            cursor: pointer !important;
+        }
+        
+        .accessibility-slider::-moz-range-thumb {
+            width: 18px !important;
+            height: 18px !important;
+            border-radius: 50% !important;
+            background: #2563eb !important;
+            cursor: pointer !important;
+            border: none !important;
+        }
+        
+        .accessibility-slider:focus {
+            outline: 2px solid #2563eb !important;
+            outline-offset: 2px !important;
+        }
+        
+        .accessibility-slider-value {
+            display: flex !important;
+            justify-content: space-between !important;
+            font-size: 12px !important;
+            color: #6b7280 !important;
+            margin-top: 4px !important;
+        }
+        
+        .accessibility-languages {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr) !important;
+            gap: 8px !important;
+            max-height: 200px !important;
+            overflow-y: auto !important;
+            padding-right: 8px !important;
+        }
+        
+        .accessibility-language-button {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 8px 4px !important;
+            border-radius: 6px !important;
+            background-color: #f3f4f6 !important;
+            border: 1px solid #e5e7eb !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        .accessibility-language-button:hover, .accessibility-language-button:focus {
+            background-color: #e5e7eb !important;
+        }
+        
+        .accessibility-language-button:focus {
+            outline: 2px solid #2563eb !important;
+            outline-offset: 2px !important;
+        }
+        
+        .accessibility-language-button.active {
+            background-color: #2563eb !important;
+            color: white !important;
+            border-color: #2563eb !important;
+        }
+        
+        .accessibility-language-flag {
+            font-size: 20px !important;
+            margin-bottom: 4px !important;
+        }
+        
+        .accessibility-language-name {
+            font-size: 10px !important;
+            text-align: center !important;
+        }
+        
+        .accessibility-reset-button {
+            width: 100% !important;
+            padding: 10px !important;
+            background-color: #ef4444 !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            font-weight: 500 !important;
+            margin-top: 16px !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        .accessibility-reset-button:hover, .accessibility-reset-button:focus {
+            background-color: #dc2626 !important;
+        }
+        
+        .accessibility-reset-button:focus {
+            outline: 2px solid #ef4444 !important;
+            outline-offset: 2px !important;
+        }
+        
+        .accessibility-switch-container {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            margin-bottom: 8px !important;
+        }
+        
+        .accessibility-switch-label {
+            font-size: 14px !important;
+            color: #4b5563 !important;
+        }
+        
+        .accessibility-switch {
+            position: relative !important;
+            display: inline-block !important;
+            width: 44px !important;
+            height: 24px !important;
+        }
+        
+        .accessibility-switch input {
+            opacity: 0 !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        
+        .accessibility-switch-slider {
+            position: absolute !important;
+            cursor: pointer !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background-color: #e5e7eb !important;
+            transition: .4s !important;
+            border-radius: 24px !important;
+        }
+        
+        .accessibility-switch-slider:before {
+            position: absolute !important;
+            content: "" !important;
+            height: 18px !important;
+            width: 18px !important;
+            left: 3px !important;
+            bottom: 3px !important;
+            background-color: white !important;
+            transition: .4s !important;
+            border-radius: 50% !important;
+        }
+        
+        .accessibility-switch input:checked + .accessibility-switch-slider {
+            background-color: #2563eb !important;
+        }
+        
+        .accessibility-switch input:focus + .accessibility-switch-slider {
+            box-shadow: 0 0 1px #2563eb !important;
+        }
+        
+        .accessibility-switch input:checked + .accessibility-switch-slider:before {
+            transform: translateX(20px) !important;
+        }
+        
+        /* Styles pour la loupe */
+        #accessibility-magnifier {
+            position: absolute !important;
+            width: 150px !important;
+            height: 150px !important;
+            border-radius: 50% !important;
+            border: 2px solid #2563eb !important;
+            pointer-events: none !important;
+            z-index: 99997 !important;
+            display: none;
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+            transform: scale(1.5);
+            overflow: hidden !important;
+        }
+        
+        /* Styles pour la ligne de lecture */
+        #accessibility-reading-line {
+            position: absolute !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 40px !important;
+            background-color: rgba(37, 99, 235, 0.1) !important;
+            border-top: 1px solid rgba(37, 99, 235, 0.5) !important;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.5) !important;
+            pointer-events: none !important;
+            z-index: 99996 !important;
+            display: none;
+        }
+        
+        /* Styles pour le curseur agrandi */
+        .accessibility-large-cursor {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='%232563eb' stroke='white' stroke-width='2'%3E%3Cpath d='M8 3L2 9.5 8.5 9.5 8.5 15 12 15 12 8 17 8z'/%3E%3C/svg%3E") 0 0, auto !important;
+        }
+        
+        /* Classes d'accessibilité appliquées au body */
+        body.accessibility-high-contrast {
+            background-color: #000 !important;
+            color: #fff !important;
+        }
+        
+        body.accessibility-high-contrast a {
+            color: #ffff00 !important;
+        }
+        
+        body.accessibility-high-contrast button:not([id^="accessibility"]) {
+            background-color: #fff !important;
+            color: #000 !important;
+            border: 2px solid #fff !important;
+        }
+        
+        body.accessibility-dark-contrast {
+            background-color: #222 !important;
+            color: #ddd !important;
+        }
+        
+        body.accessibility-dark-contrast a {
+            color: #3b82f6 !important;
+        }
+        
+        body.accessibility-sepia {
+            background-color: #f8f0e3 !important;
+            color: #5f4b32 !important;
+        }
+        
+        body.accessibility-sepia a {
+            color: #b45309 !important;
+        }
+        
+        body.accessibility-yellow-black {
+            background-color: #000 !important;
+            color: #ff0 !important;
+        }
+        
+        body.accessibility-yellow-black a {
+            color: #ff0 !important;
+            text-decoration: underline !important;
+        }
+        
+        body.accessibility-underline-links a {
+            text-decoration: underline !important;
+            text-underline-offset: 2px !important;
+        }
+        
+        body.accessibility-simple-reading {
+            max-width: 800px !important;
+            margin: 0 auto !important;
+            padding: 20px !important;
+            line-height: 1.8 !important;
+        }
+        
+        body.accessibility-simple-reading p {
+            margin-bottom: 1.5em !important;
+        }
+        
+        body.accessibility-simple-reading img {
+            max-width: 100% !important;
+            height: auto !important;
+            display: block !important;
+            margin: 1.5em auto !important;
+        }
+        
+        body.accessibility-reduced-motion *,
+        body.accessibility-reduced-motion *::before,
+        body.accessibility-reduced-motion *::after {
+            animation-duration: 0.001s !important;
+            animation-delay: 0.001s !important;
+            transition-duration: 0.001s !important;
+            transition-delay: 0.001s !important;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Styles pour les profils */
+        .accessibility-profile-button {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            width: 100% !important;
+            padding: 10px 12px !important;
+            margin-bottom: 8px !important;
+            background-color: #f3f4f6 !important;
+            border: 1px solid #e5e7eb !important;
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            text-align: left !important;
+        }
+        
+        .accessibility-profile-button:hover, .accessibility-profile-button:focus {
+            background-color: #e5e7eb !important;
+        }
+        
+        .accessibility-profile-button:focus {
+            outline: 2px solid #2563eb !important;
+            outline-offset: 2px !important;
+        }
+        
+        .accessibility-profile-icon {
+            margin-right: 12px !important;
+            font-size: 20px !important;
+            width: 24px !important;
+            height: 24px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        .accessibility-profile-info {
+            flex: 1 !important;
+        }
+        
+        .accessibility-profile-title {
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            color: #1f2937 !important;
+            margin-bottom: 2px !important;
+        }
+        
+        .accessibility-profile-description {
+            font-size: 12px !important;
+            color: #6b7280 !important;
+        }
+        
+        /* Styles pour la version mobile */
+        @media (max-width: 640px) {
+            #accessibility-panel {
+                width: calc(100% - 40px) !important;
+                max-width: 320px !important;
+                right: 20px !important;
+            }
+            
+            .accessibility-languages {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+        }
+        
+        /* Styles pour le mode lecture */
+        .accessibility-reading-mode {
+            max-width: 800px !important;
+            margin: 0 auto !important;
+            padding: 20px !important;
+            font-size: 18px !important;
+            line-height: 1.8 !important;
+            background-color: #fff !important;
+            color: #333 !important;
+        }
+        
+        .accessibility-reading-mode h1, 
+        .accessibility-reading-mode h2, 
+        .accessibility-reading-mode h3 {
+            margin-top: 1.5em !important;
+            margin-bottom: 0.8em !important;
+        }
+        
+        .accessibility-reading-mode p {
+            margin-bottom: 1.2em !important;
+        }
+        
+        .accessibility-reading-mode img {
+            max-width: 100% !important;
+            height: auto !important;
+            margin: 1.5em 0 !important;
+        }
+        
+        /* Styles pour le mode dyslexie */
+        .accessibility-dyslexia-font {
+            font-family: 'Open Sans', 'Arial', sans-serif !important;
+            letter-spacing: 0.12em !important;
+            word-spacing: 0.16em !important;
+            line-height: 1.8 !important;
+        }
+        
+        /* Styles pour le mode RGPD */
+        #accessibility-gdpr-notice {
+            position: fixed !important;
+            bottom: 90px !important;
+            right: 20px !important;
+            width: 320px !important;
+            background-color: #ffffff !important;
+            border-radius: 12px !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+            z-index: 99997 !important;
+            padding: 16px !important;
+            font-size: 14px !important;
+            color: #333 !important;
+            display: none;
+        }
+        
+        #accessibility-gdpr-notice.visible {
+            display: block !important;
+        }
+        
+        #accessibility-gdpr-notice p {
+            margin-bottom: 12px !important;
+        }
+        
+        #accessibility-gdpr-notice button {
+            padding: 8px 12px !important;
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            font-size: 14px !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        #accessibility-gdpr-accept {
+            background-color: #2563eb !important;
+            color: white !important;
+            border: none !important;
+            margin-right: 8px !important;
+        }
+        
+        #accessibility-gdpr-decline {
+            background-color: transparent !important;
+            border: 1px solid #e5e7eb !important;
+            color: #4b5563 !important;
+        }
+        
+        /* NOUVELLE SECTION: Styles pour la section "Découverte / Curieux" */
+        .accessibility-discovery-section {
+            background-color: #f0f9ff !important;
+            border-radius: 8px !important;
+            padding: 16px !important;
+            margin-bottom: 20px !important;
+            border: 1px solid #bae6fd !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+        
+        .accessibility-discovery-section::before {
+            content: "" !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 4px !important;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd) !important;
+        }
+        
+        .accessibility-discovery-header {
+            display: flex !important;
+            align-items: center !important;
+            margin-bottom: 12px !important;
+        }
+        
+        .accessibility-discovery-icon {
+            font-size: 24px !important;
+            margin-right: 12px !important;
+        }
+        
+        .accessibility-discovery-title {
+            font-weight: 600 !important;
+            font-size: 16px !important;
+            color: #0369a1 !important;
+        }
+        
+        .accessibility-discovery-description {
+            font-size: 14px !important;
+            color: #0c4a6e !important;
+            margin-bottom: 12px !important;
+        }
+        
+        .accessibility-discovery-button {
+            width: 100% !important;
+            padding: 10px !important;
+            background-color: #0ea5e9 !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            font-weight: 500 !important;
+            transition: all 0.2s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        .accessibility-discovery-button:hover, .accessibility-discovery-button:focus {
+            background-color: #0284c7 !important;
+        }
+        
+        .accessibility-discovery-button:focus {
+            outline: 2px solid #0ea5e9 !important;
+            outline-offset: 2px !important;
+        }
+        
+        .accessibility-discovery-button svg {
+            margin-right: 8px !important;
+            width: 18px !important;
+            height: 18px !important;
+        }
+        
+        /* Styles pour les tooltips */
+        .accessibility-tooltip {
+            position: relative !important;
+            display: inline-block !important;
+        }
+        
+        .accessibility-tooltip .accessibility-tooltip-text {
+            visibility: hidden !important;
+            width: 200px !important;
+            background-color: #1f2937 !important;
+            color: #fff !important;
+            text-align: center !important;
+            border-radius: 6px !important;
+            padding: 8px !important;
+            position: absolute !important;
+            z-index: 99999 !important;
+            bottom: 125% !important;
+            left: 50% !important;
+            margin-left: -100px !important;
+            opacity: 0 !important;
+            transition: opacity 0.3s !important;
+            font-size: 12px !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+            pointer-events: none !important;
+        }
+        
+        .accessibility-tooltip .accessibility-tooltip-text::after {
+            content: "" !important;
+            position: absolute !important;
+            top: 100% !important;
+            left: 50% !important;
+            margin-left: -5px !important;
+            border-width: 5px !important;
+            border-style: solid !important;
+            border-color: #1f2937 transparent transparent transparent !important;
+        }
+        
+        .accessibility-tooltip.show-tooltip .accessibility-tooltip-text {
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        /* Animation pour le mode découverte */
+        @keyframes discovery-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(14, 165, 233, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
+        }
+        
+        .discovery-mode-active {
+            animation: discovery-pulse 2s infinite !important;
+            border: 2px solid #0ea5e9 !important;
+        }
+        
+        /* Styles pour le mode découverte actif */
+        body.accessibility-discovery-mode {
+            position: relative !important;
+        }
+        
+        body.accessibility-discovery-mode::after {
+            content: "" !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            border: 4px solid #0ea5e9 !important;
+            pointer-events: none !important;
+            z-index: 99990 !important;
+            animation: discovery-pulse 2s infinite !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Démonstration du Widget d'Accessibilité RGAA/WCAG</h1>
+        <p>Cette page démontre l'intégration du widget d'accessibilité conforme aux normes RGAA 4.1 et WCAG 2.1 niveau AA. Cliquez sur l'icône d'accessibilité en bas à droite pour ouvrir le panneau d'options.</p>
+        
+        <h2>Fonctionnalités disponibles</h2>
+        <ul>
+            <li>Contrastes : clair, sombre, sépia, noir/jaune</li>
+            <li>Ajustement de la taille du texte</li>
+            <li>Espacement des lettres, mots, lignes</li>
+            <li>Mode lecture simplifiée</li>
+            <li>Soulignement automatique des liens</li>
+            <li>Synthèse vocale</li>
+            <li>Loupe, ligne de lecture, curseur agrandi</li>
+            <li>Traduction en 50 langues</li>
+            <li>Option "Réduire les animations"</li>
+            <li>Profils prédéfinis (malvoyant, senior, dyslexie, moteur)</li>
+            <li>Mode découverte pour les curieux</li>
+        </ul>
+        
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere.</p>
+        
+        <p>Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.</p>
+        
+        <p><a href="https://bb1p9fjqhn3be9v6.canva-hosted-embed.com/codelet/AAEAEGJiMXA5ZmpxaG4zYmU5djYAAAAAAZbEio3eiy8xaKSAnmiv0y7akpZQuu7rVglljLFUfAKckizn9gc/#">Ceci est un exemple de lien</a> qui peut être souligné pour une meilleure accessibilité.</p>
+    </div>
+    
+    <!-- Widget d'Accessibilité -->
+    <div id="accessibility-widget">
+        <!-- Bouton flottant -->
+        <button id="accessibility-toggle" aria-label="Ouvrir les options d&#39;accessibilité" class="pulse-animation" aria-expanded="false" aria-controls="accessibility-panel">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+        </button>
+        
+        <!-- Panneau d'options -->
+        <div id="accessibility-panel" role="dialog" aria-labelledby="accessibility-panel-title" aria-hidden="true" class="">
+            <div id="accessibility-panel-header">
+                <h2 id="accessibility-panel-title">Options d'accessibilité</h2>
+                <button id="accessibility-close" aria-label="Fermer le panneau d&#39;accessibilité">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="accessibility-panel-content">
+                <!-- NOUVELLE SECTION: Section Découverte / Curieux -->
+                <div class="accessibility-discovery-section">
+                    <div class="accessibility-discovery-header">
+                        <span class="accessibility-discovery-icon">👀</span>
+                        <div class="accessibility-discovery-title">Curieux ? Découvrez ce widget</div>
+                    </div>
+                    <div class="accessibility-discovery-description">
+                        Testez les options d'accessibilité sans en avoir besoin immédiatement. Découvrez comment ce widget peut améliorer l'expérience de navigation pour tous.
+                    </div>
+                    <button id="discovery-mode-button" class="accessibility-discovery-button" aria-label="Activer le mode découverte">Explorer les fonctionnalités</button>
+                </div>
+                
+                <!-- Profils prédéfinis -->
+                <div class="accessibility-section">
+                    <div class="accessibility-section-title accessibility-tooltip">
+                        Profils
+                        <span class="accessibility-tooltip-text">Sélectionnez un profil adapté à vos besoins spécifiques</span>
+                    </div>
+                    <div>
+                        <button class="accessibility-profile-button" id="profile-visual" aria-label="Activer le profil malvoyant">
+                            <span class="accessibility-profile-icon">👁️</span>
+                            <div class="accessibility-profile-info">
+                                <div class="accessibility-profile-title">Malvoyant</div>
+                                <div class="accessibility-profile-description">Contraste élevé, texte agrandi</div>
+                            </div>
+                        </button>
+                        
+                        <button class="accessibility-profile-button" id="profile-senior" aria-label="Activer le profil senior">
+                            <span class="accessibility-profile-icon">👵</span>
+                            <div class="accessibility-profile-info">
+                                <div class="accessibility-profile-title">Senior</div>
+                                <div class="accessibility-profile-description">Texte plus grand, liens soulignés</div>
+                            </div>
+                        </button>
+                        
+                        <button class="accessibility-profile-button" id="profile-dyslexia" aria-label="Activer le profil dyslexie">
+                            <span class="accessibility-profile-icon">📖</span>
+                            <div class="accessibility-profile-info">
+                                <div class="accessibility-profile-title">Dyslexie</div>
+                                <div class="accessibility-profile-description">Police adaptée, espacement augmenté</div>
+                            </div>
+                        </button>
+                        
+                        <button class="accessibility-profile-button" id="profile-motor" aria-label="Activer le profil moteur">
+                            <span class="accessibility-profile-icon">👆</span>
+                            <div class="accessibility-profile-info">
+                                <div class="accessibility-profile-title">Moteur</div>
+                                <div class="accessibility-profile-description">Curseur agrandi, cibles plus grandes</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contrastes -->
+                <div class="accessibility-section">
+                    <div class="accessibility-section-title accessibility-tooltip">
+                        Contrastes
+                        <span class="accessibility-tooltip-text">Modifiez les couleurs pour améliorer la lisibilité</span>
+                    </div>
+                    <div class="accessibility-options">
+                        <button class="accessibility-button active" id="contrast-normal" aria-label="Contraste normal">Normal</button>
+                        <button class="accessibility-button" id="contrast-dark" aria-label="Contraste sombre">Sombre</button>
+                        <button class="accessibility-button" id="contrast-high" aria-label="Contraste élevé">Élevé</button>
+                        <button class="accessibility-button" id="contrast-sepia" aria-label="Mode sépia">Sépia</button>
+                        <button class="accessibility-button" id="contrast-yellow-black" aria-label="Jaune sur noir">Jaune/Noir</button>
+                    </div>
+                </div>
+                
+                <!-- Taille du texte -->
+                <div class="accessibility-section">
+                    <div class="accessibility-section-title accessibility-tooltip">
+                        Taille du texte
+                        <span class="accessibility-tooltip-text">Agrandissez le texte pour une meilleure lisibilité</span>
+                    </div>
+                    <div class="accessibility-slider-container">
+                        <input type="range" min="100" max="200" value="100" class="accessibility-slider" id="font-size-slider" aria-label="Ajuster la taille du texte">
+                        <div class="accessibility-slider-value">
+                            <span>100%</span>
+                            <span id="font-size-value">100%</span>
+                            <span>200%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Espacement -->
+                <div class="accessibility-section">
+                    <div class="accessibility-section-title accessibility-tooltip">
+                        Espacement
+                        <span class="accessibility-tooltip-text">Ajustez l'espacement pour faciliter la lecture</span>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Lettres</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="letter-spacing-toggle" aria-label="Activer l&#39;espacement des lettres">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Mots</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="word-spacing-toggle" aria-label="Activer l&#39;espacement des mots">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Lignes</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="line-height-toggle" aria-label="Activer l&#39;espacement des lignes">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Outils de lecture -->
+                <div class="accessibility-section">
+                    <div class="accessibility-section-title accessibility-tooltip">
+                        Outils de lecture
+                        <span class="accessibility-tooltip-text">Facilitez la lecture du contenu</span>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Mode lecture</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="reading-mode-toggle" aria-label="Activer le mode lecture">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Souligner les liens</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="underline-links-toggle" aria-label="Activer le soulignement des liens">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Police dyslexie</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="dyslexia-font-toggle" aria-label="Activer la police pour dyslexie">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                    <button class="accessibility-button" id="read-aloud-button" aria-label="Lire à voix haute">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right: 6px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        </svg>
+                        Lire à voix haute
+                    </button>
+                </div>
+                
+                <!-- Outils visuels -->
+                <div class="accessibility-section">
+                    <div class="accessibility-section-title accessibility-tooltip">
+                        Outils visuels
+                        <span class="accessibility-tooltip-text">Améliorez votre expérience visuelle</span>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Loupe</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="magnifier-toggle" aria-label="Activer la loupe">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Ligne de lecture</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="reading-line-toggle" aria-label="Activer la ligne de lecture">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Curseur agrandi</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="large-cursor-toggle" aria-label="Activer le curseur agrandi">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="accessibility-switch-container">
+                        <span class="accessibility-switch-label">Réduire animations</span>
+                        <label class="accessibility-switch">
+                            <input type="checkbox" id="reduce-motion-toggle" aria-label="Réduire les animations">
+                            <span class="accessibility-switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Traduction -->
+                <div class="accessibility-section">
+                    <div class="accessibility-section-title accessibility-tooltip">
+                        Traduction
+                        <span class="accessibility-tooltip-text">Traduisez le contenu dans votre langue préférée</span>
+                    </div>
+                    <div class="accessibility-languages">
+                        <button class="accessibility-language-button active" data-lang="fr" aria-label="Français">
+                            <span class="accessibility-language-flag">🇫🇷</span>
+                            <span class="accessibility-language-name">FR</span>
+                        </button>
+                        <button class="accessibility-language-button" data-lang="en" aria-label="Anglais">
+                            <span class="accessibility-language-flag">🇬🇧</span>
+                            <span class="accessibility-language-name">EN</span>
+                        </button>
+                        <button class="accessibility-language-button" data-lang="es" aria-label="Espagnol">
+                            <span class="accessibility-language-flag">🇪🇸</span>
+                            <span class="accessibility-language-name">ES</span>
+                        </button>
+                        <button class="accessibility-language-button" data-lang="de" aria-label="Allemand">
+                            <span class="accessibility-language-flag">🇩🇪</span>
+                            <span class="accessibility-language-name">DE</span>
+                        </button>
+                        <button class="accessibility-language-button" data-lang="it" aria-label="Italien">
+                            <span class="accessibility-language-flag">🇮🇹</span>
+                            <span class="accessibility-language-name">IT</span>
+                        </button>
+                        <button class="accessibility-language-button" data-lang="pt" aria-label="Portugais">
+                            <span class="accessibility-language-flag">🇵🇹</span>
+                            <span class="accessibility-language-name">PT</span>
+                        </button>
+                        <button class="accessibility-language-button" data-lang="nl" aria-label="Néerlandais">
+                            <span class="accessibility-language-flag">🇳🇱</span>
+                            <span class="accessibility-language-name">NL</span>
+                        </button>
+                        <button class="accessibility-language-button" data-lang="ar" aria-label="Arabe">
+                            <span class="accessibility-language-flag">🇸🇦</span>
+                            <span class="accessibility-language-name">AR</span>
+                        </button>
+                        <button class="accessibility-language-button" data-lang="zh" aria-label="Chinois">
+                            <span class="accessibility-language-flag">🇨🇳</span>
+                            <span class="accessibility-language-name">ZH</span>
+                        </button>
+                        <button class="accessibility-language-button" data-lang="ja" aria-label="Japonais">
+                            <span class="accessibility-language-flag">🇯🇵</span>
+                            <span class="accessibility-language-name">JA</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Réinitialiser -->
+                <button class="accessibility-reset-button" id="reset-all-button" aria-label="Réinitialiser toutes les options">
+                    Réinitialiser toutes les options
+                </button>
+            </div>
+        </div>
+        
+        <!-- Loupe -->
+        <div id="accessibility-magnifier" style="display: none;"></div>
+        
+        <!-- Ligne de lecture -->
+        <div id="accessibility-reading-line" style="display: none;"></div>
+        
+        <!-- Notice RGPD -->
+        <div id="accessibility-gdpr-notice">
+            <p>Ce widget utilise des services externes pour la traduction. En activant cette fonctionnalité, vous acceptez le transfert de données vers ces services.</p>
+            <button id="accessibility-gdpr-accept">Accepter</button>
+            <button id="accessibility-gdpr-decline">Refuser</button>
+        </div>
+    </div>
+    
+    <script>
+        /**
+         * Widget d'Accessibilité RGAA/WCAG
+         * Version: 1.1.0
+         * Conforme aux normes RGAA 4.1 et WCAG 2.1 niveau AA
+         */
+        (function() {
+            // Éléments du DOM
+            const accessibilityToggle = document.getElementById('accessibility-toggle');
+            const accessibilityPanel = document.getElementById('accessibility-panel');
+            const accessibilityClose = document.getElementById('accessibility-close');
+            const fontSizeSlider = document.getElementById('font-size-slider');
+            const fontSizeValue = document.getElementById('font-size-value');
+            const resetAllButton = document.getElementById('reset-all-button');
+            const magnifier = document.getElementById('accessibility-magnifier');
+            const readingLine = document.getElementById('accessibility-reading-line');
+            const gdprNotice = document.getElementById('accessibility-gdpr-notice');
+            const gdprAccept = document.getElementById('accessibility-gdpr-accept');
+            const gdprDecline = document.getElementById('accessibility-gdpr-decline');
+            const discoveryModeButton = document.getElementById('discovery-mode-button');
+            
+            // État des options
+            let state = {
+                panelOpen: false,
+                fontSize: 100,
+                contrast: 'normal',
+                letterSpacing: false,
+                wordSpacing: false,
+                lineHeight: false,
+                readingMode: false,
+                underlineLinks: false,
+                dyslexiaFont: false,
+                magnifierActive: false,
+                readingLineActive: false,
+                largeCursor: false,
+                reduceMotion: false,
+                currentLanguage: 'fr',
+                gdprAccepted: false,
+                discoveryMode: false,
+                tooltipsActive: false
+            };
+            
+            // Charger les préférences sauvegardées
+            function loadSavedPreferences() {
+                const savedState = localStorage.getItem('accessibility-preferences');
+                if (savedState) {
+                    try {
+                        const parsedState = JSON.parse(savedState);
+                        state = { ...state, ...parsedState };
+                        
+                        // Appliquer les préférences chargées
+                        applyFontSize(state.fontSize);
+                        applyContrast(state.contrast);
+                        applyLetterSpacing(state.letterSpacing);
+                        applyWordSpacing(state.wordSpacing);
+                        applyLineHeight(state.lineHeight);
+                        applyReadingMode(state.readingMode);
+                        applyUnderlineLinks(state.underlineLinks);
+                        applyDyslexiaFont(state.dyslexiaFont);
+                        applyMagnifier(state.magnifierActive);
+                        applyReadingLine(state.readingLineActive);
+                        applyLargeCursor(state.largeCursor);
+                        applyReduceMotion(state.reduceMotion);
+                        
+                        // Mettre à jour l'interface
+                        updateUI();
+                    } catch (e) {
+                        console.error('Erreur lors du chargement des préférences:', e);
+                    }
+                }
+            }
+            
+            // Sauvegarder les préférences
+            function savePreferences() {
+                try {
+                    // Ne pas sauvegarder le mode découverte
+                    const stateToSave = { ...state };
+                    delete stateToSave.discoveryMode;
+                    delete stateToSave.tooltipsActive;
+                    
+                    localStorage.setItem('accessibility-preferences', JSON.stringify(stateToSave));
+                } catch (e) {
+                    console.error('Erreur lors de la sauvegarde des préférences:', e);
+                }
+            }
+            
+            // Mettre à jour l'interface utilisateur
+            function updateUI() {
+                // Mettre à jour le slider de taille de police
+                fontSizeSlider.value = state.fontSize;
+                fontSizeValue.textContent = state.fontSize + '%';
+                
+                // Mettre à jour les boutons de contraste
+                document.querySelectorAll('[id^="contrast-"]').forEach(button => {
+                    button.classList.toggle('active', button.id === 'contrast-' + state.contrast);
+                });
+                
+                // Mettre à jour les interrupteurs
+                document.getElementById('letter-spacing-toggle').checked = state.letterSpacing;
+                document.getElementById('word-spacing-toggle').checked = state.wordSpacing;
+                document.getElementById('line-height-toggle').checked = state.lineHeight;
+                document.getElementById('reading-mode-toggle').checked = state.readingMode;
+                document.getElementById('underline-links-toggle').checked = state.underlineLinks;
+                document.getElementById('dyslexia-font-toggle').checked = state.dyslexiaFont;
+                document.getElementById('magnifier-toggle').checked = state.magnifierActive;
+                document.getElementById('reading-line-toggle').checked = state.readingLineActive;
+                document.getElementById('large-cursor-toggle').checked = state.largeCursor;
+                document.getElementById('reduce-motion-toggle').checked = state.reduceMotion;
+                
+                // Mettre à jour les boutons de langue
+                document.querySelectorAll('.accessibility-language-button').forEach(button => {
+                    button.classList.toggle('active', button.dataset.lang === state.currentLanguage);
+                });
+                
+                // Mettre à jour le bouton de mode découverte
+                discoveryModeButton.textContent = state.discoveryMode ? 'Désactiver le mode découverte' : 'Explorer les fonctionnalités';
+                discoveryModeButton.classList.toggle('discovery-mode-active', state.discoveryMode);
+                
+                // Mettre à jour les tooltips
+                updateTooltips();
+            }
+            
+            // Ouvrir/fermer le panneau
+            function togglePanel() {
+                state.panelOpen = !state.panelOpen;
+                accessibilityPanel.classList.toggle('visible', state.panelOpen);
+                
+                // Arrêter l'animation de pulsation quand le panneau est ouvert
+                accessibilityToggle.classList.toggle('pulse-animation', !state.panelOpen);
+                
+                // Mettre à jour l'attribut aria-expanded
+                accessibilityToggle.setAttribute('aria-expanded', state.panelOpen);
+            }
+            
+            // Appliquer la taille de police
+            function applyFontSize(size) {
+                state.fontSize = size;
+                document.documentElement.style.fontSize = size + '%';
+                fontSizeValue.textContent = size + '%';
+                savePreferences();
+            }
+            
+            // Appliquer le contraste
+            function applyContrast(type) {
+                // Supprimer toutes les classes de contraste
+                document.body.classList.remove(
+                    'accessibility-high-contrast',
+                    'accessibility-dark-contrast',
+                    'accessibility-sepia',
+                    'accessibility-yellow-black'
+                );
+                
+                // Appliquer la nouvelle classe de contraste
+                if (type !== 'normal') {
+                    document.body.classList.add('accessibility-' + type + '-contrast');
+                }
+                
+                state.contrast = type;
+                savePreferences();
+            }
+            
+            // Appliquer l'espacement des lettres
+            function applyLetterSpacing(active) {
+                state.letterSpacing = active;
+                if (active) {
+                    document.documentElement.style.letterSpacing = '0.12em';
+                } else {
+                    document.documentElement.style.letterSpacing = '';
+                }
+                savePreferences();
+            }
+            
+            // Appliquer l'espacement des mots
+            function applyWordSpacing(active) {
+                state.wordSpacing = active;
+                if (active) {
+                    document.documentElement.style.wordSpacing = '0.16em';
+                } else {
+                    document.documentElement.style.wordSpacing = '';
+                }
+                savePreferences();
+            }
+            
+            // Appliquer l'espacement des lignes
+            function applyLineHeight(active) {
+                state.lineHeight = active;
+                if (active) {
+                    document.documentElement.style.lineHeight = '1.8';
+                } else {
+                    document.documentElement.style.lineHeight = '';
+                }
+                savePreferences();
+            }
+            
+            // Appliquer le mode lecture
+            function applyReadingMode(active) {
+                state.readingMode = active;
+                document.body.classList.toggle('accessibility-reading-mode', active);
+                savePreferences();
+            }
+            
+            // Appliquer le soulignement des liens
+            function applyUnderlineLinks(active) {
+                state.underlineLinks = active;
+                document.body.classList.toggle('accessibility-underline-links', active);
+                savePreferences();
+            }
+            
+            // Appliquer la police pour dyslexie
+            function applyDyslexiaFont(active) {
+                state.dyslexiaFont = active;
+                document.body.classList.toggle('accessibility-dyslexia-font', active);
+                savePreferences();
+            }
+            
+            // Appliquer la loupe
+            function applyMagnifier(active) {
+                state.magnifierActive = active;
+                
+                if (active) {
+                    document.addEventListener('mousemove', handleMagnifier);
+                    magnifier.style.display = 'block';
+                } else {
+                    document.removeEventListener('mousemove', handleMagnifier);
+                    magnifier.style.display = 'none';
+                }
+                
+                savePreferences();
+            }
+            
+            // Gérer la loupe
+            function handleMagnifier(e) {
+                const x = e.clientX;
+                const y = e.clientY;
+                
+                // Positionner la loupe
+                magnifier.style.left = (x - 75) + 'px';
+                magnifier.style.top = (y - 75) + 'px';
+                
+                // Effet de zoom
+                magnifier.style.backgroundImage = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='transparent'/%3E%3C/svg%3E")`;
+                magnifier.style.backgroundPosition = `-${x * 1.5 - 75}px -${y * 1.5 - 75}px`;
+                magnifier.style.backgroundSize = `${window.innerWidth * 1.5}px ${window.innerHeight * 1.5}px`;
+            }
+            
+            // Appliquer la ligne de lecture
+            function applyReadingLine(active) {
+                state.readingLineActive = active;
+                
+                if (active) {
+                    document.addEventListener('mousemove', handleReadingLine);
+                    readingLine.style.display = 'block';
+                } else {
+                    document.removeEventListener('mousemove', handleReadingLine);
+                    readingLine.style.display = 'none';
+                }
+                
+                savePreferences();
+            }
+            
+            // Gérer la ligne de lecture
+            function handleReadingLine(e) {
+                readingLine.style.top = (e.clientY - 20) + 'px';
+            }
+            
+            // Appliquer le curseur agrandi
+            function applyLargeCursor(active) {
+                state.largeCursor = active;
+                document.body.classList.toggle('accessibility-large-cursor', active);
+                savePreferences();
+            }
+            
+            // Appliquer la réduction des animations
+            function applyReduceMotion(active) {
+                state.reduceMotion = active;
+                document.body.classList.toggle('accessibility-reduced-motion', active);
+                savePreferences();
+            }
+            
+            // Lire à voix haute
+            function readAloud() {
+                if (!('speechSynthesis' in window)) {
+                    alert("Désolé, votre navigateur ne prend pas en charge la synthèse vocale.");
+                    return;
+                }
+                
+                // Récupérer le texte visible de la page
+                const textToRead = Array.from(document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, a'))
+                    .map(el => el.textContent)
+                    .join('. ');
+                
+                // Créer un nouvel objet SpeechSynthesisUtterance
+                const utterance = new SpeechSynthesisUtterance(textToRead);
+                
+                // Définir la langue
+                utterance.lang = state.currentLanguage;
+                
+                // Lire le texte
+                window.speechSynthesis.cancel(); // Arrêter toute lecture en cours
+                window.speechSynthesis.speak(utterance);
+            }
+            
+            // Lire un message spécifique à voix haute
+            function readMessage(message) {
+                if (!('speechSynthesis' in window)) {
+                    return;
+                }
+                
+                // Créer un nouvel objet SpeechSynthesisUtterance
+                const utterance = new SpeechSynthesisUtterance(message);
+                
+                // Définir la langue
+                utterance.lang = state.currentLanguage;
+                
+                // Lire le texte
+                window.speechSynthesis.cancel(); // Arrêter toute lecture en cours
+                window.speechSynthesis.speak(utterance);
+            }
+            
+            // Appliquer un profil prédéfini
+            function applyProfile(profileType) {
+                // Réinitialiser d'abord
+                resetAll();
+                
+                switch (profileType) {
+                    case 'visual':
+                        // Profil malvoyant
+                        applyContrast('high');
+                        applyFontSize(150);
+                        applyUnderlineLinks(true);
+                        break;
+                        
+                    case 'senior':
+                        // Profil senior
+                        applyFontSize(125);
+                        applyLineHeight(true);
+                        applyUnderlineLinks(true);
+                        break;
+                        
+                    case 'dyslexia':
+                        // Profil dyslexie
+                        applyDyslexiaFont(true);
+                        applyLetterSpacing(true);
+                        applyWordSpacing(true);
+                        applyLineHeight(true);
+                        break;
+                        
+                    case 'motor':
+                        // Profil moteur
+                        applyLargeCursor(true);
+                        applyFontSize(120);
+                        break;
+                }
+                
+                // Mettre à jour l'interface
+                updateUI();
+            }
+            
+            // Réinitialiser toutes les options
+            function resetAll() {
+                // Réinitialiser l'état
+                const discoveryModeState = state.discoveryMode; // Conserver l'état du mode découverte
+                const tooltipsActiveState = state.tooltipsActive; // Conserver l'état des tooltips
+                
+                state = {
+                    ...state,
+                    fontSize: 100,
+                    contrast: 'normal',
+                    letterSpacing: false,
+                    wordSpacing: false,
+                    lineHeight: false,
+                    readingMode: false,
+                    underlineLinks: false,
+                    dyslexiaFont: false,
+                    magnifierActive: false,
+                    readingLineActive: false,
+                    largeCursor: false,
+                    reduceMotion: false,
+                    discoveryMode: discoveryModeState,
+                    tooltipsActive: tooltipsActiveState
+                };
+                
+                // Réinitialiser les styles
+                document.documentElement.style.fontSize = '';
+                document.documentElement.style.letterSpacing = '';
+                document.documentElement.style.wordSpacing = '';
+                document.documentElement.style.lineHeight = '';
+                
+                // Supprimer toutes les classes d'accessibilité
+                document.body.classList.remove(
+                    'accessibility-high-contrast',
+                    'accessibility-dark-contrast',
+                    'accessibility-sepia',
+                    'accessibility-yellow-black',
+                    'accessibility-reading-mode',
+                    'accessibility-underline-links',
+                    'accessibility-dyslexia-font',
+                    'accessibility-large-cursor',
+                    'accessibility-reduced-motion'
+                );
+                
+                // Désactiver la loupe et la ligne de lecture
+                document.removeEventListener('mousemove', handleMagnifier);
+                document.removeEventListener('mousemove', handleReadingLine);
+                magnifier.style.display = 'none';
+                readingLine.style.display = 'none';
+                
+                // Mettre à jour l'interface
+                updateUI();
+                
+                // Sauvegarder les préférences
+                savePreferences();
+            }
+            
+            // Changer de langue
+            function changeLanguage(lang) {
+                // Vérifier si la traduction nécessite le consentement RGPD
+                if (lang !== 'fr' && !state.gdprAccepted) {
+                    gdprNotice.classList.add('visible');
+                    return;
+                }
+                
+                state.currentLanguage = lang;
+                
+                // Simuler la traduction (dans une version réelle, appeler une API)
+                console.log(`Traduction en ${lang} activée`);
+                
+                // Mettre à jour l'interface
+                updateUI();
+                savePreferences();
+            }
+            
+            // Gérer le consentement RGPD
+            function handleGdprConsent(accepted) {
+                gdprNotice.classList.remove('visible');
+                
+                if (accepted) {
+                    state.gdprAccepted = true;
+                    savePreferences();
+                    
+                    // Appliquer la dernière langue sélectionnée
+                    const selectedLang = document.querySelector('.accessibility-language-button:focus')?.dataset.lang;
+                    if (selectedLang) {
+                        changeLanguage(selectedLang);
+                    }
+                }
+            }
+            
+            // NOUVELLE FONCTION: Activer/désactiver le mode découverte
+            function toggleDiscoveryMode() {
+                state.discoveryMode = !state.discoveryMode;
+                
+                if (state.discoveryMode) {
+                    // Activer le mode découverte
+                    document.body.classList.add('accessibility-discovery-mode');
+                    
+                    // Appliquer des paramètres légers pour la démonstration
+                    applyFontSize(115);
+                    applyContrast('sepia');
+                    applyUnderlineLinks(true);
+                    
+                    // Activer les tooltips
+                    state.tooltipsActive = true;
+                    updateTooltips();
+                    
+                    // Lire un message d'introduction
+                    const introMessage = "Bienvenue dans le mode découverte du widget d'accessibilité. Explorez les différentes options pour comprendre comment elles peuvent améliorer l'expérience de navigation.";
+                    readMessage(introMessage);
+                    
+                    // Afficher un message dans la console
+                    console.log("Mode découverte activé");
+                } else {
+                    // Désactiver le mode découverte
+                    document.body.classList.remove('accessibility-discovery-mode');
+                    
+                    // Désactiver les tooltips
+                    state.tooltipsActive = false;
+                    updateTooltips();
+                    
+                    // Réinitialiser les paramètres
+                    resetAll();
+                    
+                    // Afficher un message dans la console
+                    console.log("Mode découverte désactivé");
+                }
+                
+                // Mettre à jour l'interface
+                updateUI();
+            }
+            
+            // NOUVELLE FONCTION: Mettre à jour les tooltips
+            function updateTooltips() {
+                const tooltips = document.querySelectorAll('.accessibility-tooltip');
+                
+                if (state.tooltipsActive) {
+                    // Afficher les tooltips un par un avec un délai
+                    tooltips.forEach((tooltip, index) => {
+                        setTimeout(() => {
+                            tooltip.classList.add('show-tooltip');
+                            
+                            // Masquer le tooltip après 3 secondes
+                            setTimeout(() => {
+                                tooltip.classList.remove('show-tooltip');
+                            }, 3000);
+                        }, index * 1000);
+                    });
+                } else {
+                    // Masquer tous les tooltips
+                    tooltips.forEach(tooltip => {
+                        tooltip.classList.remove('show-tooltip');
+                    });
+                }
+            }
+            
+            // Initialisation
+            function init() {
+                // Ajouter les écouteurs d'événements
+                accessibilityToggle.addEventListener('click', togglePanel);
+                accessibilityClose.addEventListener('click', togglePanel);
+                
+                // Fermer le panneau avec la touche Echap
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && state.panelOpen) {
+                        togglePanel();
+                    }
+                });
+                
+                // Taille de police
+                fontSizeSlider.addEventListener('input', function() {
+                    applyFontSize(parseInt(this.value));
+                });
+                
+                // Contrastes
+                document.getElementById('contrast-normal').addEventListener('click', () => applyContrast('normal'));
+                document.getElementById('contrast-dark').addEventListener('click', () => applyContrast('dark'));
+                document.getElementById('contrast-high').addEventListener('click', () => applyContrast('high'));
+                document.getElementById('contrast-sepia').addEventListener('click', () => applyContrast('sepia'));
+                document.getElementById('contrast-yellow-black').addEventListener('click', () => applyContrast('yellow-black'));
+                
+                // Espacement
+                document.getElementById('letter-spacing-toggle').addEventListener('change', function() {
+                    applyLetterSpacing(this.checked);
+                });
+                
+                document.getElementById('word-spacing-toggle').addEventListener('change', function() {
+                    applyWordSpacing(this.checked);
+                });
+                
+                document.getElementById('line-height-toggle').addEventListener('change', function() {
+                    applyLineHeight(this.checked);
+                });
+                
+                // Outils de lecture
+                document.getElementById('reading-mode-toggle').addEventListener('change', function() {
+                    applyReadingMode(this.checked);
+                });
+                
+                document.getElementById('underline-links-toggle').addEventListener('change', function() {
+                    applyUnderlineLinks(this.checked);
+                });
+                
+                document.getElementById('dyslexia-font-toggle').addEventListener('change', function() {
+                    applyDyslexiaFont(this.checked);
+                });
+                
+                document.getElementById('read-aloud-button').addEventListener('click', readAloud);
+                
+                // Outils visuels
+                document.getElementById('magnifier-toggle').addEventListener('change', function() {
+                    applyMagnifier(this.checked);
+                });
+                
+                document.getElementById('reading-line-toggle').addEventListener('change', function() {
+                    applyReadingLine(this.checked);
+                });
+                
+                document.getElementById('large-cursor-toggle').addEventListener('change', function() {
+                    applyLargeCursor(this.checked);
+                });
+                
+                document.getElementById('reduce-motion-toggle').addEventListener('change', function() {
+                    applyReduceMotion(this.checked);
+                });
+                
+                // Profils
+                document.getElementById('profile-visual').addEventListener('click', () => applyProfile('visual'));
+                document.getElementById('profile-senior').addEventListener('click', () => applyProfile('senior'));
+                document.getElementById('profile-dyslexia').addEventListener('click', () => applyProfile('dyslexia'));
+                document.getElementById('profile-motor').addEventListener('click', () => applyProfile('motor'));
+                
+                // Langues
+                document.querySelectorAll('.accessibility-language-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        changeLanguage(this.dataset.lang);
+                    });
+                });
+                
+                // Réinitialiser
+                resetAllButton.addEventListener('click', resetAll);
+                
+                // RGPD
+                gdprAccept.addEventListener('click', () => handleGdprConsent(true));
+                gdprDecline.addEventListener('click', () => handleGdprConsent(false));
+                
+                // NOUVEAU: Mode découverte
+                discoveryModeButton.addEventListener('click', toggleDiscoveryMode);
+                
+                // Charger les préférences sauvegardées
+                loadSavedPreferences();
+                
+                // Ajouter des attributs ARIA
+                accessibilityToggle.setAttribute('aria-expanded', 'false');
+                accessibilityToggle.setAttribute('aria-controls', 'accessibility-panel');
+                accessibilityPanel.setAttribute('aria-hidden', 'true');
+                
+                console.log('Widget d\'accessibilité initialisé avec succès');
+            }
+            
+            // Initialiser le widget
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93e1cb2954d14b31',t:'MTc0Njk2NzczOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;" src="./saved_resource.html"></iframe>
+</body></html>
